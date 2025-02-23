@@ -1,5 +1,43 @@
 import React from "react";
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import 'remixicon/fonts/remixicon.css'
  const Home=()=>{
+  const submitHandler = (e) => {
+    e.preventDefault()
+  }
+  const [ pickup, setPickup ] = useState('')
+  const [ destination, setDestination ] = useState('')
+  const [ panelOpen, setPanelOpen ] = useState(false)
+  const panelRef = useRef(null)
+  const panelCloseRef = useRef(null)
+
+
+
+  useGSAP(function () {
+    if (panelOpen) {
+        gsap.to(panelRef.current, {
+            height: '70%',
+            padding: 24
+            // opacity:1
+        })
+        gsap.to(panelCloseRef.current, {
+            opacity: 1
+        })
+    } else {
+        gsap.to(panelRef.current, {
+            height: '0%',
+            padding: 0
+            // opacity:0
+        })
+        gsap.to(panelCloseRef.current, {
+            opacity: 0
+        })
+    }
+}, [ panelOpen ])
+
+
+  
   return (
     <div className='h-screen relative overflow-hidden'>
         <img className='w-16 absolute left-5 top-5' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" />
